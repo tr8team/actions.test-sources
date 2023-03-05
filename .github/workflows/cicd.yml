@@ -160,7 +160,7 @@ jobs:
 
   MetadataProcessing:
     needs:
-      - UniTest
+      - UnitTest
       - IntegrationTest
     runs-on:
       - nix
@@ -244,7 +244,6 @@ jobs:
           NIXPKGS_ALLOW_UNFREE: "1"
         run: nix-shell nix/shells.nix -A ci --run scripts/ci/pre-commit.sh
 
-  # Only on main branch
   Release:
     needs:
       - UnitTest
