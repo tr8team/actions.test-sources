@@ -170,7 +170,7 @@ jobs:
           fetch-depth: 0
       - name: Test Tracker
         id: test-tracker
-        uses: tr8team/test-tracker@v1
+        uses: tr8team/test-tracker@v1.30
         with:
           data: |
             [
