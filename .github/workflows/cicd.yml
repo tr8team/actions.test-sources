@@ -6,10 +6,8 @@ on:
       - main
 env:
   ENABLE_PNPM_CACHE: "false"
-  SETUP_COMPLETE: "true"
 jobs:
   UnitTest:
-    if: env.SETUP_COMPLETE == 'true'
     runs-on:
       - nix
       - ARM64
@@ -82,7 +80,6 @@ jobs:
       testResult: ${{ steps.unit-test-report-extractor.outputs.data }}
       testCoverage: ${{ steps.unit-coverage-report-extractor.outputs.data }}
   IntegrationTest:
-    if: env.SETUP_COMPLETE == 'true'
     runs-on:
       - nix
       - ARM64
@@ -162,7 +159,6 @@ jobs:
       testCoverage: ${{ steps.integration-coverage-report-extractor.outputs.data }}
 
   MetadataProcessing:
-    if: env.SETUP_COMPLETE == 'true'
     needs:
       - UniTest
       - IntegrationTest
@@ -192,7 +188,6 @@ jobs:
           github_token: ${{ secrets.GIST_TOKEN }}
           prefix: "tr8team-test-sources"
   Build:
-    if: env.SETUP_COMPLETE == 'true'
     runs-on:
       - nix
       - ARM64
@@ -221,7 +216,6 @@ jobs:
           NIXPKGS_ALLOW_UNFREE: "1"
         run: nix-shell nix/shells.nix -A ci --run scripts/ci/build.sh
   Pre-commit:
-    if: env.SETUP_COMPLETE == 'true'
     runs-on:
       - nix
       - ARM64
@@ -258,7 +252,7 @@ jobs:
       - Build
       - Pre-commit
     name: Release
-    if: github.ref == 'refs/heads/main' &&  env.SETUP_COMPLETE == 'true'
+    if: github.ref == 'refs/heads/main'
     runs-on:
       - nix
       - ARM64
