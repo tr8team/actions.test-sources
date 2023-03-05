@@ -124,7 +124,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: "test-report-integration-test-tr8team-test-sources"
-          directory: test-results/unit/html
+          directory: test-results/int/html
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Coverage Result
@@ -134,7 +134,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: "coverage-report-integration-test-tr8team-test-sources"
-          directory: test-results/unit/coverage
+          directory: test-results/int/coverage
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Integration Test Extractor
