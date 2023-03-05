@@ -5,19 +5,18 @@ const loaders = union([
   literal("vitest-istanbul-coverage"),
 ]);
 
-const configElement = object({
+const config = object({
   name: string(),
   url: string(),
   type: loaders,
   path: string(),
 }).strict();
 
-const input = array(configElement);
+const input = array(config);
 
 type Loaders = z.infer<typeof loaders>;
-type ConfigElement = z.infer<typeof configElement>;
-type Config = z.infer<typeof input>;
+type Config = z.infer<typeof config>;
 
-export { loaders, input, configElement };
+export { loaders, input, config };
 
-export type { Loaders, ConfigElement, Config };
+export type { Loaders, Config };

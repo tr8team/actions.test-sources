@@ -9,7 +9,7 @@ import { Loader } from "../../src/lib/interface/loader";
 import { PathLoaders } from "../../src/lib/path-loaders";
 import { Err, Ok, Result } from "../../src/lib/core/result";
 import { Output } from "../../src/lib/output";
-import { ConfigElement, Loaders } from "../../src/lib/input";
+import { Config, Loaders } from "../../src/lib/input";
 import { None, Some } from "../../src/lib/core/option";
 
 should();
@@ -58,7 +58,7 @@ describe("PathLoaders", function() {
         new Map([]),
         new Map([])
       );
-      const subject: ConfigElement ={
+      const subject: Config ={
         name: "Unit Test",
         url: "http://unittest.com",
         path: "some-path",
@@ -94,7 +94,7 @@ describe("PathLoaders", function() {
           }]
         ])
       );
-      const subject: ConfigElement ={
+      const subject: Config ={
         name: "Unit Test",
         url: "http://unittest.com",
         path: "some-path",
@@ -127,7 +127,7 @@ describe("PathLoaders", function() {
         ]),
         new Map([])
       );
-      const subject: ConfigElement ={
+      const subject: Config ={
         name: "Unit Test",
         url: "http://unittest.com",
         path: "some-path",

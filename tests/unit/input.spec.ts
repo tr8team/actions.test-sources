@@ -2,12 +2,12 @@ import { should, it, describe } from "vitest";
 should();
 
 import { SafeParseError, SafeParseSuccess, ZodError } from "zod";
-import { configElement, ConfigElement } from "../../src/lib/input";
+import { config, Config } from "../../src/lib/input";
 
 
 describe("input validator", function() {
   describe("valid object", function(){
-    const theory: { subject: any; expected: ConfigElement }[] = [
+    const theory: { subject: any; expected: Config }[] = [
       {
         subject: {
           name: "Test Input",
@@ -42,7 +42,7 @@ describe("input validator", function() {
     theory.forEach(({ subject, expected }) => {
       it("should return the validated object and no error object", () => {
         // act
-        const act = configElement.safeParse(subject) as SafeParseSuccess<ConfigElement>;
+        const act = config.safeParse(subject) as SafeParseSuccess<Config>;
         act.success.should.be.true;
         act.data.should.deep.equal(expected);
       });
@@ -153,7 +153,7 @@ describe("input validator", function() {
       ];
       theory.forEach(({ subject, expected }) => {
         it(`for subject ${JSON.stringify(subject)} error should be ${JSON.stringify(expected)}`, () => {
-          const act = configElement.safeParse(subject) as SafeParseError<ConfigElement>;
+          const act = config.safeParse(subject) as SafeParseError<Config>;
           act.success.should.be.false;
           act.error.issues.should.deep.equal(expected.issues);
         });
@@ -201,7 +201,7 @@ describe("input validator", function() {
       ];
       theory.forEach(({ subject, expected }) => {
         it(`for subject ${JSON.stringify(subject)} error should be ${expected}`, () => {
-          const act = configElement.safeParse(subject) as SafeParseError<ConfigElement>;
+          const act = config.safeParse(subject) as SafeParseError<Config>;
           act.success.should.be.false;
           act.error.issues.should.deep.equal(expected.issues);
         });
@@ -254,7 +254,7 @@ describe("input validator", function() {
       ];
       theory.forEach(({ subject, expected }) => {
         it(`for subject ${JSON.stringify(subject)} error should be ${expected}`, () => {
-          const act = configElement.safeParse(subject) as SafeParseError<ConfigElement>;
+          const act = config.safeParse(subject) as SafeParseError<Config>;
           act.success.should.be.false;
           act.error.issues.should.deep.equal(expected.issues);
         });
@@ -352,7 +352,7 @@ describe("input validator", function() {
       ];
       theory.forEach(({ subject, expected }) => {
         it(`for subject ${JSON.stringify(subject)} error should be ${expected}`, () => {
-          const act = configElement.safeParse(subject) as SafeParseError<ConfigElement>;
+          const act = config.safeParse(subject) as SafeParseError<Config>;
           act.success.should.be.false;
           act.error.issues.should.deep.equal(expected.issues);
         });
@@ -417,7 +417,7 @@ describe("input validator", function() {
             message: "Required"
           }
         ];
-        const act = configElement.safeParse({}) as SafeParseError<ConfigElement>;
+        const act = config.safeParse({}) as SafeParseError<Config>;
         act.success.should.be.false;
         act.error.issues.should.deep.equal(ex);
       });

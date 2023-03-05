@@ -1,5 +1,5 @@
 import { Loader } from "./interface/loader";
-import { ConfigElement, Loaders } from "./input";
+import { Config, Loaders } from "./input";
 import { Output } from "./output";
 import { None, Option, Some } from "./core/option";
 import { Ok, Result } from "./core/result";
@@ -25,12 +25,7 @@ class PathLoaders<T> implements Loader {
     this.#mapper = mapper;
   }
 
-  load({
-    name,
-    url,
-    path,
-    type,
-  }: ConfigElement): Result<Option<Output>, Error> {
+  load({ name, url, path, type }: Config): Result<Option<Output>, Error> {
     if (type === this.#type) {
       return this.#json
         .load(path, Some(this.#validator))

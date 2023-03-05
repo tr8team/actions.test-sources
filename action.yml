@@ -4,10 +4,18 @@ description: >-
   results and metadata to be piped to other CI steps
 author: "kirinnee"
 inputs:
-  data:
+  name:
     required: true
-    description: "Data search configuration. See [Input](#input-schema)"
-    default: "[]"
+    description: "Name and unique identifier of this report"
+  url:
+    required: true
+    description: "URL to the actual report"
+  type:
+    required: true
+    description: "Type of report. Accepts 'vitest-result' and 'vitest-istanbul-coverage'"
+  path:
+    required: true
+    description: "Path to find the report metadata"
 runs:
   using: "node16"
   main: "dist/index.js"
