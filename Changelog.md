@@ -1,3 +1,18 @@
+## 1.0.0 (2023-03-05)
+
+
+### Features
+
+* overall structure with vitest result ([8df0dc1](https://github.com/tr8team/test-sources/commit/8df0dc17ba235cf46544082a7395efbeddb6045d))
+* remove task cache ([30944a9](https://github.com/tr8team/test-sources/commit/30944a9060da12f47c52dd85468a0d80b127f72d))
+* vitest istanbul coverage mapper ([913e106](https://github.com/tr8team/test-sources/commit/913e106733a35f1a4f6f9c9b77c2d7a2f2a96bd3))
+* vitest istanbul coverage source ([263ee1a](https://github.com/tr8team/test-sources/commit/263ee1a724a93c904ed4856c55b8a462e0701157))
+
+
+### Bug Fixes
+
+* typing errors ([0e622a5](https://github.com/tr8team/test-sources/commit/0e622a554978bf921d7cf150f653bd8510094147))
+
 ## [1.3.0](https://github.com/tr8team/typescript-github-action-template/compare/v1.2.1...v1.3.0) (2023-03-04)
 
 
