@@ -1,3 +1,13 @@
+## [1.1.0](https://github.com/tr8team/test-sources/compare/v1.0.0...v1.1.0) (2023-03-05)
+
+
+### Features
+
+* input retriever ([31bc6dc](https://github.com/tr8team/test-sources/commit/31bc6dc3c3c4995c5b9146b7d68da787888bf852))
+* main ([54d147a](https://github.com/tr8team/test-sources/commit/54d147a3e326080a0b3694efea5ff0f5f04692d5))
+* main app ([d27b538](https://github.com/tr8team/test-sources/commit/d27b5389fdd6699b758499da3d8f8b020945c29c))
+* main service ([6c01f6a](https://github.com/tr8team/test-sources/commit/6c01f6a877140db795fe3327d0608185378225b4))
+
 ## 1.0.0 (2023-03-05)
 
 
