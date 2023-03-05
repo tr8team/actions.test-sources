@@ -1,6 +1,6 @@
 import { chai, should, it, describe } from "vitest";
 import { object, string } from "zod";
-import { parseJSON, toResult } from "../../src/lib/util.js";
+import { catchToResult, parseJSON, stringToOption, toResult } from "../../src/lib/util.js";
 import { Ok } from "../../src/lib/core/result.js";
 // @ts-ignore
 import helper from "../helper.js";
@@ -51,4 +51,73 @@ describe("parseJSON", function() {
     return act.should.be.errErrorMessage(expected);
   });
 
+});
+
+
+
+describe("catchToResult", function() {
+
+  it("should return error directly", function() {
+    const subj = new Error("This is an test error");
+    const ex = new Error("This is an test error");
+
+    const act = catchToResult(subj);
+    act.should.deep.equal(ex);
+  });
+
+  it("should return string wrapped as Error Result", function() {
+    const subj = "This is an test error string to be thrown";
+    const ex = new Error("This is an test error string to be thrown");
+
+    const act = catchToResult(subj);
+    act.should.deep.equal(ex);
+  });
+
+  it("should return stringified JSON wrapped as Error Result", function() {
+    const subj = {
+      name: "Calvin",
+      age: 250,
+      colors: ["green", "blue", "orange"],
+      food: {
+        type: "indian",
+        name: "prata"
+      }
+    };
+    const ex = new Error(`{"name":"Calvin","age":250,"colors":["green","blue","orange"],"food":{"type":"indian","name":"prata"}}`);
+
+    const act = catchToResult(subj);
+    act.should.deep.equal(ex);
+  });
+
+
+});
+
+
+describe("stringToOption", function() {
+  it("should return None for null inputs", async function() {
+    const subject = null;
+    const act = stringToOption(subject);
+
+    return act.should.be.none;
+  });
+  it("should return None for undefined inputs", function() {
+    const subject = undefined;
+    const act = stringToOption(subject);
+    return act.should.be.none;
+  });
+  it("should return None for no inputs", function() {
+    const subj = {} as any;
+    const act = stringToOption(subj.some);
+    return act.should.be.none;
+  });
+  it("should return None for empty strings", function() {
+    const subj = "";
+    const act = stringToOption(subj);
+    return act.should.be.none;
+  });
+  it("should return Some with the string value", function() {
+    const subj = "sample";
+    const act = stringToOption(subj);
+    return act.should.be.someOf("sample");
+  });
 });

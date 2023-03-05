@@ -27,7 +27,7 @@ repos:
       - id: nixfmt
       - id: shfmt
       - id: jsonfmt
-        exclude: ^.*node_modules.*$
+        exclude: ^(.*node_modules.*|tests/integration/artifacts/.*)$
       - id: dockerlint
       - id: nodelint
       - id: tslint

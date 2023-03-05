@@ -1,11 +1,13 @@
-name: "Your name here"
-description: "Provide a description here"
-author: "Your name or organization here"
+name: "Test Extractor"
+description: >-
+  Extract test results, coverage results, code quality
+  results and metadata to be piped to other CI steps
+author: "kirinnee"
 inputs:
-  milliseconds: # change this
+  data:
     required: true
-    description: "input description here"
-    default: "default value if applicable"
+    description: "Data search configuration. See [Input](#input-schema)"
+    default: "[]"
 runs:
   using: "node16"
   main: "dist/index.js"

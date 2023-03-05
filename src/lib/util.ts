@@ -1,5 +1,6 @@
 import { ZodError } from "zod";
 import { Err, Ok, Result } from "./core/result.js";
+import { None, Option, Some } from "./core/option";
 
 function toResult<T>(
   du: { success: true; data: T } | { success: false; error: ZodError }
@@ -19,4 +20,20 @@ function parseJSON<T>(raw: string): Result<T, Error> {
   }
 }
 
-export { toResult, parseJSON };
+function catchToResult(e: unknown): Error {
+  if (e instanceof Error) {
+    return e;
+  } else if (typeof e === "string") {
+    return new Error(e);
+  }
+  return new Error(JSON.stringify(e));
+}
+
+function stringToOption(s: string | null | undefined): Option<string> {
+  if (s == null) {
+    return None();
+  }
+  return s.length === 0 ? None() : Some(s);
+}
+
+export { toResult, parseJSON, catchToResult, stringToOption };
