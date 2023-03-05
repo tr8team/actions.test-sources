@@ -30,39 +30,37 @@ jobs:
           restore-keys: |
             test-${{ runner.os }}-${{ runner.arch }}-pnpm
 
-      - name: Unit Tests
+      - name: Emulate Nix Shell
         env:
           NIXPKGS_ALLOW_UNFREE: "1"
-        run: nix-shell nix/shells.nix -A ci --run scripts/ci/unit_test.sh
-
-      - name: Inject PATH variable for Publish to CloudFlare Pages
         run: nix-shell nix/shells.nix -A ci --run scripts/ci/export_path.sh
+
+      - name: Unit Tests
+        run: scripts/ci/unit_test.sh
 
       - name: Publish Test Result
         id: unit-test-report
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: "test-report-unit-test-tr8team-test-sources"
-          directory: test-results/unit/html
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+        run: scripts/ci/publish_cloudflare.sh
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PROJECT_NAME: "test-report-unit-test-tr8team-test-sources"
+          DIRECTORY: test-results/unit/html
 
       - name: Publish Coverage Result
         id: unit-coverage-report
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: "coverage-report-unit-test-tr8team-test-sources"
-          directory: test-results/unit/coverage
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+        run: scripts/ci/publish_cloudflare.sh
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PROJECT_NAME: "coverage-report-unit-test-tr8team-test-sources"
+          DIRECTORY: test-results/unit/coverage
 
       - name: Unit Test Extractor
         id: unit-test-report-extractor
         uses: tr8team/test-sources@v1.1.0
         with:
-          name: Unit Test Test Results
+          name: Unit Test Results
           url: "${{ steps.unit-test-report.outputs.url }}"
           type: "vitest-result"
           path: "./test-results/unit/result.json"
@@ -71,7 +69,7 @@ jobs:
         id: unit-coverage-report-extractor
         uses: tr8team/test-sources@v1.1.0
         with:
-          name: Unit Test Test Results
+          name: Unit Test Coverage
           url: "${{ steps.unit-coverage-report.outputs.url }}"
           type: "vitest-istanbul-coverage"
           path: "./test-results/unit/coverage/coverage-summary.json"
@@ -108,52 +106,49 @@ jobs:
           key: test-${{ runner.os }}-${{ runner.arch }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             test-${{ runner.os }}-${{ runner.arch }}-pnpm
-
-      - name: Integration Tests
+      - name: Inject PATH variable for Publish to CloudFlare Pages
         env:
           NIXPKGS_ALLOW_UNFREE: "1"
-        run: nix-shell nix/shells.nix -A ci --run scripts/ci/integration_test.sh
-
-      - name: Inject PATH variable for Publish to CloudFlare Pages
         run: nix-shell nix/shells.nix -A ci --run scripts/ci/export_path.sh
+
+      - name: Integration Tests
+        run: scripts/ci/integration_test.sh
 
       - name: Publish Test Result
         id: integration-test-report
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: "test-report-integration-test-tr8team-test-sources"
-          directory: test-results/int/html
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+        run: scripts/ci/publish_cloudflare.sh
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PROJECT_NAME: "test-report-integration-test-tr8team-test-sources"
+          DIRECTORY: test-results/int/html
 
       - name: Publish Coverage Result
         id: integration-coverage-report
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: "coverage-report-integration-test-tr8team-test-sources"
-          directory: test-results/int/coverage
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+        run: scripts/ci/publish_cloudflare.sh
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PROJECT_NAME: "coverage-report-integration-test-tr8team-test-sources"
+          DIRECTORY: test-results/int/coverage
 
       - name: Integration Test Extractor
         id: integration-test-report-extractor
         uses: tr8team/test-sources@v1.1.0
         with:
-          name: Integration Test Test Results
+          name: Integration Test Results
           url: "${{ steps.integration-test-report.outputs.url }}"
           type: "vitest-result"
-          path: "./test-results/integration/result.json"
+          path: "./test-results/int/result.json"
 
       - name: Integration Test coverage Extractor
         id: integration-coverage-report-extractor
         uses: tr8team/test-sources@v1.1.0
         with:
-          name: Integration Test Test Results
+          name: Integration Test Coverage
           url: "${{ steps.integration-coverage-report.outputs.url }}"
           type: "vitest-istanbul-coverage"
-          path: "./test-results/integration/coverage/coverage-summary.json"
+          path: "./test-results/int/coverage/coverage-summary.json"
     outputs:
       testResult: ${{ steps.integration-test-report-extractor.outputs.data }}
       testCoverage: ${{ steps.integration-coverage-report-extractor.outputs.data }}
@@ -215,6 +210,7 @@ jobs:
         env:
           NIXPKGS_ALLOW_UNFREE: "1"
         run: nix-shell nix/shells.nix -A ci --run scripts/ci/build.sh
+
   Pre-commit:
     runs-on:
       - nix

@@ -38,6 +38,7 @@ with pkgs;
   ci = [
     git
     awscli2
+    wrangler
   ];
 
   releaser = [

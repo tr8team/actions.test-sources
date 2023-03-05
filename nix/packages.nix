@@ -31,6 +31,7 @@ let
           git
           gomplate
           shellcheck;
+        wrangler = nodePackages.wrangler;
         node18 = nodejs;
         webstorm = jetbrains.webstorm;
         prettier = nodePackages.prettier;
