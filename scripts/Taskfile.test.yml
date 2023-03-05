@@ -9,6 +9,11 @@ tasks:
     desc: Run unit tests with auto-reload
     cmds:
       - task: unit:watch
+  cover:
+    desc: Run unit tests and integration test coverage
+    cmds:
+      - task: unit:cover
+      - task: int:cover
   report:
     desc: Generate unit tests and integration tests reports
     deps:
