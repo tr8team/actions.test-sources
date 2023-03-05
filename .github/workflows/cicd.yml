@@ -174,8 +174,8 @@ jobs:
         with:
           data: |
             [
-              ${{needs.UniTest.outputs.testResult}},
-              ${{needs.UniTest.outputs.testCoverage}},
+              ${{needs.UnitTest.outputs.testResult}},
+              ${{needs.UnitTest.outputs.testCoverage}},
               ${{needs.IntegrationTest.outputs.testResult}},
               ${{needs.IntegrationTest.outputs.testCoverage}}
             ]
