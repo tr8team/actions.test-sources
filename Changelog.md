@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/tr8team/test-sources/compare/v1.1.1...v1.1.2) (2023-03-05)
+
+
+### Bug Fixes
+
+* incorrect test-tracker version ([95f31da](https://github.com/tr8team/test-sources/commit/95f31da7fd23acd9cea8db6bc4daa19b5fe882f6))
+
 ## [1.1.1](https://github.com/tr8team/test-sources/compare/v1.1.0...v1.1.1) (2023-03-05)
 
 
