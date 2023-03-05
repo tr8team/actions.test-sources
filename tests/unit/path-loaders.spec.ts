@@ -1,6 +1,10 @@
 import { describe, it, should, chai } from "vitest";
 // @ts-ignore
 import helper from "../helper.js";
+
+should();
+chai.use(helper);
+
 import { Source } from "../../src/lib/interface/file-loader";
 import { anything, instance, mock, when } from "ts-mockito";
 import { Validator } from "../../src/lib/interface/validator";
@@ -12,8 +16,6 @@ import { Output } from "../../src/lib/output";
 import { Config, Loaders } from "../../src/lib/input";
 import { None, Some } from "../../src/lib/core/option";
 
-should();
-chai.use(helper);
 
 
 type Person = {
