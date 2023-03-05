@@ -11,6 +11,9 @@ jobs:
       - nix
       - ARM64
     steps:
+      - name: Gotrade CI Environment
+        uses: kirinnee/atomici-action@v2.3.1
+
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
@@ -26,13 +29,9 @@ jobs:
           CF_WARP_ID: ${{ secrets.CLOUDFLARE_WARP_ID }}
           CF_OKTA_ID: ${{ secrets.CLOUDFLARE_OKTA_ID }}
           NON_INTERACTIVE: "1"
-        run: |
-          ./scripts/ci/setup-cloudflare-single.sh "${{ github.repository }}" "Unit Test" "Test Report"
-          ./scripts/ci/setup-cloudflare-single.sh "${{ github.repository }}" "Unit Test" "Coverage Report"
-          ./scripts/ci/setup-cloudflare-single.sh "${{ github.repository }}" "Integration Test" "Test Report"
-          ./scripts/ci/setup-cloudflare-single.sh "${{ github.repository }}" "Integration Test" "Coverage Report"
-          gomplate -d config=./repo.yaml -f ./.github/workflows/cicd.yml --left-delim "{{{" --right-delim "}}}" -o ./.github/workflows/cicd.yml
-          rm repo.yaml
+          NIXPKGS_ALLOW_UNFREE: "1"
+          DEBUG: "1"
+        run: nix-shell nix/shells.nix -A ci --run scripts/ci/setup-cloudflare.sh
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
         with:

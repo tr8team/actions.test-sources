@@ -251,7 +251,9 @@ resp=$(
 }
 EOL
 )
-echo "$resp"
+if [ "${debug}" = "1" ]; then
+	echo "$resp"
+fi
 [ "$(echo "$resp" | jq '.success')" = "true" ]
 echo "✅ Restricted wildcard of original domain '*.${project}.pages.dev' behind VPN"
 
