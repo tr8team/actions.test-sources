@@ -6,7 +6,7 @@ on:
       - main
 env:
   ENABLE_PNPM_CACHE: "false"
-  SETUP_COMPLETE: "false"
+  SETUP_COMPLETE: "true"
 jobs:
   UnitTest:
     if: env.SETUP_COMPLETE == 'true'
@@ -46,7 +46,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: 'test-report-unit-test-tr8team-test-sources'
+          projectName: "test-report-unit-test-tr8team-test-sources"
           directory: test-results/unit/html
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
@@ -56,7 +56,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: 'coverage-report-unit-test-tr8team-test-sources'
+          projectName: "coverage-report-unit-test-tr8team-test-sources"
           directory: test-results/unit/coverage
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
@@ -126,7 +126,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: 'test-report-integration-test-tr8team-test-sources'
+          projectName: "test-report-integration-test-tr8team-test-sources"
           directory: test-results/unit/html
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
@@ -136,7 +136,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: 'coverage-report-integration-test-tr8team-test-sources'
+          projectName: "coverage-report-integration-test-tr8team-test-sources"
           directory: test-results/unit/coverage
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
