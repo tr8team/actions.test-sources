@@ -16,6 +16,9 @@ inputs:
   path:
     required: true
     description: "Path to find the report metadata"
+outputs:
+  data:
+    description: "Standard metadata format to be consumed downstream"
 runs:
   using: "node16"
   main: "dist/index.js"

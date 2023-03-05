@@ -29,6 +29,7 @@ let
           findutils
           gnused
           git
+          gomplate
           shellcheck;
         node18 = nodejs;
         webstorm = jetbrains.webstorm;

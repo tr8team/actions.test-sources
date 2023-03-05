@@ -8,6 +8,7 @@ with pkgs;
     findutils
     gnused
     jq
+    gomplate
   ];
 
   main = [
