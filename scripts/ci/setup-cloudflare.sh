@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
+repo="${REPOSITORY}"
+
 if [ "$DEBUG" = "1" ]; then
 	set -x
 fi
 
 set -euo pipefail
-
-repo="$1"
 
 ./scripts/ci/setup-cloudflare-single.sh "$repo" "Unit Test" "Test Report"
 ./scripts/ci/setup-cloudflare-single.sh "$repo" "Unit Test" "Coverage Report"

@@ -28,6 +28,7 @@ jobs:
           CF_ZONE: ${{ secrets.CLOUDFLARE_ZONE_ID }}
           CF_WARP_ID: ${{ secrets.CLOUDFLARE_WARP_ID }}
           CF_OKTA_ID: ${{ secrets.CLOUDFLARE_OKTA_ID }}
+          REPOSITORY: ${{ github.repository }}
           NON_INTERACTIVE: "1"
           NIXPKGS_ALLOW_UNFREE: "1"
           DEBUG: "1"
