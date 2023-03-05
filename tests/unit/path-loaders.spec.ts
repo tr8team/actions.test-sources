@@ -1,4 +1,5 @@
 import { describe, it, should, chai } from "vitest";
+// @ts-ignore
 import helper from "../helper.js";
 import { Source } from "../../src/lib/interface/file-loader";
 import { anything, instance, mock, when } from "ts-mockito";

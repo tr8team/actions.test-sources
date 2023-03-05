@@ -1,10 +1,10 @@
 import { describe, it, should, chai } from "vitest";
+// @ts-ignore
 import helper from "../../helper.js";
 import { VitestResultMapper } from "../../../src/lib/mappers/vitest-result";
 
 should();
 chai.use(helper);
-
 
 describe("VitestResultMapper", function() {
 

@@ -1,4 +1,5 @@
 import { describe, it, should, chai } from "vitest";
+// @ts-ignore
 import helper from "../../helper.js";
 should();
 chai.use(helper);
