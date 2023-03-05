@@ -142,7 +142,7 @@ jobs:
         uses: tr8team/test-sources@v1.1.0
         with:
           name: Integration Test Test Results
-          url: "${{ steps.unit-test-report.outputs.url }}"
+          url: "${{ steps.integration-test-report.outputs.url }}"
           type: "vitest-result"
           path: "./test-results/integration/result.json"
 
@@ -151,7 +151,7 @@ jobs:
         uses: tr8team/test-sources@v1.1.0
         with:
           name: Integration Test Test Results
-          url: "${{ steps.unit-coverage-report.outputs.url }}"
+          url: "${{ steps.integration-coverage-report.outputs.url }}"
           type: "vitest-istanbul-coverage"
           path: "./test-results/integration/coverage/coverage-summary.json"
     outputs:
