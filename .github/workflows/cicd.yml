@@ -184,7 +184,7 @@ jobs:
           prefix: "tr8team-test-sources"
       - name: Test Quality Gate Policies
         id: test-quality-gate
-        uses: tr8team/actions.test-qualitygate@v1.0.0
+        uses: tr8team/actions.test-qualitygate@v1.0.1
         with:
           current: ${{ steps.test-tracker.outputs.current }}
           base: ${{ steps.test-tracker.outputs.base }}
