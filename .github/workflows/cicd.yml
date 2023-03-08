@@ -189,7 +189,7 @@ jobs:
           current: ${{ steps.test-tracker.outputs.current }}
           base: ${{ steps.test-tracker.outputs.base }}
           history: ${{ steps.test-tracker.outputs.before }}
-          policy: |
+          policies: |
             [
               {
                 "name": "No failures for Unit Tests",
