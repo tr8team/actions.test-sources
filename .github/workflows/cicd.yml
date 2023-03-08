@@ -233,8 +233,10 @@ jobs:
 
       - name: Print test result
         run: echo ${{ steps.test-quality-gate.outputs.current }}
+        if: always()
       - name: Print test result
         run: echo ${{ steps.test-quality-gate.outputs.history }}
+        if: always()
   Build:
     runs-on:
       - nix
@@ -287,8 +289,7 @@ jobs:
           restore-keys: |
             test-${{ runner.os }}-${{ runner.arch }}-pnpm
 
-      - name: Integrations Tests
-        continue-on-error: true
+      - name: Pre-Commit
         env:
           NIXPKGS_ALLOW_UNFREE: "1"
         run: nix-shell nix/shells.nix -A ci --run scripts/ci/pre-commit.sh
