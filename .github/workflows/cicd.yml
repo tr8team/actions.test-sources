@@ -199,7 +199,7 @@ jobs:
                   "metric": "fail",
                   "warn": 0,
                   "fail": 0
-                },
+                }
               },
               {
                 "name": "No failures for Integration Tests",
@@ -209,7 +209,7 @@ jobs:
                   "metric": "fail",
                   "warn": 0,
                   "fail": 0
-                },
+                }
               },
               {
                 "name": "Minimum 90% coverage for Unit Tests",
@@ -218,7 +218,7 @@ jobs:
                   "type": "any-coverage-policy",
                   "warn": 95,
                   "fail": 90
-                },
+                }
               },
               {
                 "name": "Minimum 90% coverage for Integration Tests",
@@ -227,8 +227,8 @@ jobs:
                   "type": "any-coverage-policy",
                   "warn": 95,
                   "fail": 90
-                },
-              },
+                }
+              }
             ]
 
       - name: Print test result
