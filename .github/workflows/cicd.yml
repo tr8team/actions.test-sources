@@ -182,6 +182,59 @@ jobs:
           gist_id: "3552382c230547da39350815400ee665"
           github_token: ${{ secrets.GIST_TOKEN }}
           prefix: "tr8team-test-sources"
+      - name: Test Quality Gate Policies
+        id: test-quality-gate
+        uses: tr8team/actions.test-qualitygate@v1.0.0
+        with:
+          current: ${{ steps.test-tracker.outputs.current }}
+          base: ${{ steps.test-tracker.outputs.base }}
+          history: ${{ steps.test-tracker.outputs.before }}
+          policy: |
+            [
+              {
+                "name": "No failures for Unit Tests",
+                "target": "Unit Test Results",
+                "data": {
+                  "type": "max-literal-test-policy",
+                  "metric": "fail",
+                  "warn": 0,
+                  "fail": 0
+                },
+              },
+              {
+                "name": "No failures for Integration Tests",
+                "target": "Integration Test Results",
+                "data": {
+                  "type": "max-literal-test-policy",
+                  "metric": "fail",
+                  "warn": 0,
+                  "fail": 0
+                },
+              },
+              {
+                "name": "Minimum 90% coverage for Unit Tests",
+                "target": "Unit Test Coverage",
+                "data": {
+                  "type": "any-coverage-policy",
+                  "warn": 95,
+                  "fail": 90
+                },
+              },
+              {
+                "name": "Minimum 90% coverage for Integration Tests",
+                "target": "Integration Test Coverage",
+                "data": {
+                  "type": "any-coverage-policy",
+                  "warn": 95,
+                  "fail": 90
+                },
+              },
+            ]
+
+      - name: Print test result
+        run: echo ${{ steps.test-quality-gate.outputs.current }}
+      - name: Print test result
+        run: echo ${{ steps.test-quality-gate.outputs.history }}
   Build:
     runs-on:
       - nix
