@@ -93,7 +93,7 @@ describe("App", function() {
       await act.native(); // force eval
 
       it("should return error", async function() {
-        await act.should.be.someOf([new Error("kagura!!")]);
+        await act.should.be.someOf([new Error("kagur!!")]);
       });
 
       it("should not call setObject", async function() {
