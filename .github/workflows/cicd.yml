@@ -184,7 +184,7 @@ jobs:
           prefix: "tr8team-test-sources"
       - name: Test Quality Gate Policies
         id: test-quality-gate
-        uses: tr8team/actions.test-qualitygate@v1.0.1
+        uses: tr8team/actions.test-qualitygate@v1.0.1,
         with:
           current: ${{ steps.test-tracker.outputs.current }}
           base: ${{ steps.test-tracker.outputs.base }}
@@ -230,13 +230,18 @@ jobs:
                 }
               }
             ]
-
+      - name: test-markdown
+        id: test-markdown
+        uses: tr8team/actions.test-markdown@v1.0.1
+        with:
+          current: ${{ steps.test-quality-gate.outputs.current }}
+          history: ${{ steps.test-quality-gate.outputs.history }}
       - name: Print test result
-        run: echo ${{ steps.test-quality-gate.outputs.current }}
+        run: echo ${{ steps.test-markdown.outputs.currentMarkdown }}
         if: always()
       - name: Print test result
-        run: echo ${{ steps.test-quality-gate.outputs.history }}
-        if: always()
+        run: echo
+        if: always() ${{ steps.test-markdown.outputs.currentMarkdown }}
   Build:
     runs-on:
       - nix
