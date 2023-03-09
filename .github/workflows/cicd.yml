@@ -184,7 +184,7 @@ jobs:
           prefix: "tr8team-test-sources"
       - name: Test Quality Gate Policies
         id: test-quality-gate
-        uses: tr8team/actions.test-qualitygate@v1.0.0
+        uses: tr8team/actions.test-qualitygate@v1.0.1
         with:
           current: ${{ steps.test-tracker.outputs.current }}
           base: ${{ steps.test-tracker.outputs.base }}
@@ -230,13 +230,26 @@ jobs:
                 }
               }
             ]
+      - name: test-markdown
+        id: test-markdown
+        uses: tr8team/actions.test-markdown@v1.0.6
+        if: always()
+        with:
+          current: ${{ steps.test-quality-gate.outputs.current }}
+          history: ${{ steps.test-quality-gate.outputs.history }}
+      - name: Comment PR with execution number
+        uses: thollander/actions-comment-pull-request@v2
+        if: always()
+        with:
+          message: |
+            ${{ steps.test-markdown.outputs.currentMarkdown }}
 
-      - name: Print test result
-        run: echo ${{ steps.test-quality-gate.outputs.current }}
+            ## History
+            ${{ steps.test-markdown.outputs.historyMarkdown }}
+          comment_tag: test-markdown-comment
+      - name: Write to Summary
         if: always()
-      - name: Print test result
-        run: echo ${{ steps.test-quality-gate.outputs.history }}
-        if: always()
+        run: echo '${{ steps.test-markdown.outputs.currentMarkdown }}' >> $GITHUB_STEP_SUMMARY
   Build:
     runs-on:
       - nix
