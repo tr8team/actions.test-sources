@@ -232,7 +232,7 @@ jobs:
             ]
       - name: test-markdown
         id: test-markdown
-        uses: tr8team/actions.test-markdown@v1.0.5
+        uses: tr8team/actions.test-markdown@v1.0.6
         if: always()
         with:
           current: ${{ steps.test-quality-gate.outputs.current }}
@@ -248,6 +248,7 @@ jobs:
             ${{ steps.test-markdown.outputs.historyMarkdown }}
           comment_tag: test-markdown-comment
       - name: Write to Summary
+        if: always()
         run: echo '${{ steps.test-markdown.outputs.currentMarkdown }}' >> $GITHUB_STEP_SUMMARY
   Build:
     runs-on:
