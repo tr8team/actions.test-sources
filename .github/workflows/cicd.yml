@@ -237,12 +237,13 @@ jobs:
         with:
           current: ${{ steps.test-quality-gate.outputs.current }}
           history: ${{ steps.test-quality-gate.outputs.history }}
-      - name: Print test result
-        run: echo ${{ steps.test-markdown.outputs.currentMarkdown }}
-        if: always()
-      - name: Print test result
-        run: echo
-        if: always() ${{ steps.test-markdown.outputs.currentMarkdown }}
+      - name: Comment PR with execution number
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            ${{ steps.test-markdown.outputs.currentMarkdown }}
+            ${{ steps.test-markdown.outputs.currentMarkdown }}
+          comment_tag: test-markdown-comment
   Build:
     runs-on:
       - nix
