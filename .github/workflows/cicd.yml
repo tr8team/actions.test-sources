@@ -232,7 +232,7 @@ jobs:
             ]
       - name: test-markdown
         id: test-markdown
-        uses: tr8team/actions.test-markdown@v1.0.1
+        uses: tr8team/actions.test-markdown@v1.0.2
         if: always()
         with:
           current: ${{ steps.test-quality-gate.outputs.current }}
